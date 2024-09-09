@@ -1,9 +1,9 @@
-import 'package:frontend/screens/auth/introduction_screen.dart';
-import 'package:frontend/screens/auth/welcome_screen.dart';
-import 'package:frontend/screens/home/home.dart';
+import 'package:locapp_front/screens/auth/introduction_screen.dart';
+import 'package:locapp_front/screens/auth/welcome_screen.dart';
+import 'package:locapp_front/screens/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/location/location-details.dart';
-import 'package:frontend/screens/profile/user_profile.dart';
+import 'package:locapp_front/screens/location/location-details.dart';
+import 'package:locapp_front/screens/profile/user_profile.dart';
 
 void main() {
   runApp(const MainApp());

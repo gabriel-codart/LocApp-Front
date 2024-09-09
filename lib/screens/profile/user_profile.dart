@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/auth/welcome_screen.dart';
-import 'package:frontend/screens/profile/config/user_config_screen.dart';
-import 'package:frontend/screens/profile/edit_info/user_edit_info.dart';
+import 'package:locapp_front/screens/auth/welcome_screen.dart';
+import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
+import 'package:locapp_front/screens/profile/edit_info/user_edit_info.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
