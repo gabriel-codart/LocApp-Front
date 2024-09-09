@@ -14,7 +14,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
-  List<String> _categorias = ['Recomendado', 'Longa duração', 'Curta duração', 'Eventos', 'Negócios', 'Lazer'];
+  List<String> _categorias = [
+    'Recomendado', 
+    'Longa duração', 
+    'Curta duração', 
+    'Eventos', 
+    'Negócios', 
+    'Lazer'
+  ];
 
   bool toggleIsFavorited(bool isFavorited) {
     return !isFavorited;
@@ -29,7 +36,6 @@ class _HomePageState extends State<HomePage> {
         child: Container(
           color: Theme.of(context).colorScheme.surface,
           child: Column(
-            
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header com campo de pesquisa e categorias
@@ -48,11 +54,14 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
                                 color: Colors.grey.withOpacity(.1),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(30),                   
                               ),
                               child: Row(
                                 children: [
-                                  Icon(CupertinoIcons.search, color: Colors.black54.withOpacity(.6)),
+                                  Icon(
+                                    CupertinoIcons.search,
+                                    color: Colors.black54.withOpacity(.6),
+                                  ),
                                   const SizedBox(width: 8),
                                   const Expanded(
                                     child: TextField(
@@ -63,7 +72,10 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-                                  Icon(CupertinoIcons.mic, color: Colors.black54.withOpacity(.6)),
+                                  Icon(
+                                    CupertinoIcons.mic,
+                                    color: Colors.black54.withOpacity(.6),
+                                  ),
                                 ],
                               ),
                             ),
@@ -79,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         "Categorias",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black54,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                     ),
@@ -93,7 +105,11 @@ class _HomePageState extends State<HomePage> {
                             child: CircleAvatar(
                               radius: 35,
                               backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
-                              child: Icon(Icons.apartment, size: 30),
+                              child: Icon(
+                                Icons.apartment,
+                                size: 30,
+                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                              ),
                             ),
                           );
                         }),
@@ -111,10 +127,11 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
-             // Cards de locais populares
+              // Cards de locais populares
               SizedBox(
                 height: size.height * .3,
                 child: Column(
@@ -133,17 +150,16 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: Container(
                               width: 200,
-                              margin: const EdgeInsets.symmetric(horizontal: 10,),
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(20), 
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.2),
-                                    blurRadius: 5,
+                                    blurRadius: 10,
                                     spreadRadius: 5,
-                                    offset: const Offset(0, 3),
-                                    
+                                    offset: const Offset(0, 5), 
                                   ),
                                 ],
                               ),
@@ -244,7 +260,8 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    backgroundColor: Colors.transparent
+                    backgroundColor: Colors.transparent,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
               ),
@@ -269,13 +286,13 @@ class _HomePageState extends State<HomePage> {
                               height: 100,
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(20), 
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey.withOpacity(0.5),
                                     spreadRadius: 3,
                                     blurRadius: 10,
-                                    offset: Offset(0, 3),
+                                    offset: Offset(0, 5), 
                                   ),
                                 ],
                               ),
@@ -305,45 +322,46 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(
                                             fontSize: 22,
                                             fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
                                           ),
                                         ),
                                         Text(
-                                          "Eventos para negócios",
+                                          "Localização incrível",
                                           style: TextStyle(
                                             fontSize: 16,
+                                            color: Colors.black54,
                                           ),
                                         ),
-                                        RatingBar.builder(
-                                          initialRating: 4,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          itemCount: 5,
-                                          itemSize: 18,
-                                          itemPadding: const EdgeInsets.symmetric(
-                                              horizontal: 4),
-                                          itemBuilder: (context, _) => Icon(
+                                        RatingBarIndicator(
+                                          rating: 4.5,
+                                          itemBuilder: (context, index) => Icon(
                                             Icons.star,
                                             color: Theme.of(context).colorScheme.secondary,
                                           ),
-                                          onRatingUpdate: (index) {},
+                                          itemCount: 5,
+                                          itemSize: 20.0,
+                                          direction: Axis.horizontal,
                                         ),
                                         Text(
-                                          "R\$20",
+                                          "R\$15 / Hora",
                                           style: TextStyle(
-                                            fontSize: 20,
-                                            color: Theme.of(context).colorScheme.primary,
+                                            fontSize: 18,
                                             fontWeight: FontWeight.bold,
+                                            color: Theme.of(context).colorScheme.primary,
                                           ),
                                         ),
+                                        
                                       ],
+                                      
                                     ),
+                                    
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 10),
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Icon(Icons.favorite_border, color: Colors.red, size: 26,),
+                                        Icon(Icons.favorite_border, color: Theme.of(context).colorScheme.secondary, size: 26,),
                                         IconButton(
                                           icon: Icon(Icons.calendar_today, size: 26, color: Theme.of(context).colorScheme.secondary,),
                                           onPressed: () {

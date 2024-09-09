@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/auth/welcome_screen.dart';
+import 'package:frontend/screens/auth/welcome/welcome_screen.dart';
 import 'package:frontend/screens/profile/config/user_config_screen.dart';
 import 'package:frontend/screens/profile/edit_info/user_edit_info.dart';
 

@@ -77,14 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                     height: MediaQuery.of(context).size.height / 1.4,
                     child: Column(
                       children: [
-                        Text(
-                          'Entre no LocApp e comece a explorar!',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                           
-                          ),
-                        ),
+                        
                         const SizedBox(height: 50,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),

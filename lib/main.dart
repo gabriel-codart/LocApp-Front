@@ -1,5 +1,5 @@
 import 'package:frontend/screens/auth/introduction_screen.dart';
-import 'package:frontend/screens/auth/welcome_screen.dart';
+import 'package:frontend/screens/auth/welcome/welcome_screen.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/location/location-details.dart';

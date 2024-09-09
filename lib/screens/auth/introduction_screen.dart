@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/auth/welcome_screen.dart';
+import 'package:frontend/screens/auth/welcome/welcome_button.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({super.key});
@@ -63,52 +63,62 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   ),
                 ),
               ),
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Bem-Vindo ao LocApp!',
-                      style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 2,),
-                    Text(
-                      'Por-favor, escolha uma das opções abaixo',
-                      style: TextStyle(fontSize: 16,),
-                    ),
-                    const SizedBox(height: 50,),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.tightFor(width: 240, height: 80),
-                      child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          fixedSize: const Size(250, 50),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+              Column(
+                children: [
+                  Flexible(
+                    flex: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40.0),
+                      child: Center(
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Bem-Vindo!\n',
+                                style: TextStyle(
+                                  fontSize: 45.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              TextSpan(
+                                text: '\nPor-favor escolha uma das opções abaixo.',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: const Text('Sou Locador', style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),),
                       ),
                     ),
-                    const SizedBox(height: 20,),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints.tightFor(width: 240, height: 80),
-                      child: ElevatedButton(
-                        onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
-                          fixedSize: const Size(250, 50),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                        ),
-                        child: const Text('Sou Locatário', style: TextStyle(color: Colors.black87, fontSize: 18, fontWeight: FontWeight.bold),),
+                  ),
+                  const Flexible(
+                    flex: 1,
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: WelcomeButton(
+                              buttonText: "Locador",
+                              color: Colors.transparent,
+                              textColor: Colors.black54,
+                            ),
+                          ),
+                          Expanded(
+                            child: WelcomeButton(
+                              buttonText: "Locatário",
+                              color: Color.fromARGB(255, 240, 240, 240),
+                              textColor: Color.fromARGB(255, 89, 131, 230),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
             ],
           ),
         ),

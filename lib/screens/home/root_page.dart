@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/screens/home/home.dart';
-import 'package:frontend/screens/location/store.dart';
+import 'package:frontend/screens/location/user_schedule.dart';
 import 'package:frontend/screens/profile/user_profile.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart'; 
 
@@ -17,14 +17,14 @@ class _RootPageState extends State<RootPage> {
   // Lista de páginas
   List<Widget> pages = const [
     HomePage(),
-    Store(),
+    UserSchedule(),
     UserProfile(),
   ];
 
   // Lista de icons das páginas
   List<IconData> iconList = [
     Icons.home,
-    Icons.shop,
+    Icons.pending_actions,
     Icons.person,
   ];
 
@@ -61,7 +61,7 @@ class _RootPageState extends State<RootPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
-        height: 80,
+        height: 70,
         elevation: 0,
         splashColor:  Theme.of(context).colorScheme.primary.withOpacity(.9),
         activeColor:  Theme.of(context).colorScheme.primary.withOpacity(.9),
@@ -69,7 +69,7 @@ class _RootPageState extends State<RootPage> {
         icons: iconList,
         backgroundColor: Theme.of(context).colorScheme.surface,
         activeIndex: _bottomNavIndex,
-        gapLocation: GapLocation.end,
+        gapLocation: GapLocation.none,
         notchSmoothness: NotchSmoothness.softEdge,
         onTap: (index){
           setState(() {
