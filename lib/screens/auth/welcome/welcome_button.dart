@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/auth/welcome/welcome_screen.dart';
+import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
 
 class WelcomeButton extends StatelessWidget {
   const WelcomeButton({super.key, this.buttonText, this.onTap, this.color, this.textColor});

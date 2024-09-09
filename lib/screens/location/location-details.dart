@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/widgets/bottom.navigation.dart';
+import 'package:locapp_front/widgets/bottom.navigation.dart';
 
 class LocationDetails extends StatefulWidget {
   const LocationDetails({super.key});

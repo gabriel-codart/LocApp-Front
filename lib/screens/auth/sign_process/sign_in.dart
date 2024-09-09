@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:frontend/screens/auth/components/my_text_field.dart';
-import 'package:frontend/screens/home/root_page.dart';
+import 'package:locapp_front/screens/auth/components/my_text_field.dart';
+import 'package:locapp_front/screens/home/root_page.dart';
 
 class SigInScreen extends StatefulWidget {
   const SigInScreen({super.key});
