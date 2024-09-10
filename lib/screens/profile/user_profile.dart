@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
 import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
 import 'package:locapp_front/screens/profile/edit_info/user_edit_info.dart';
+import 'package:locapp_front/screens/profile/info_conta/user_conta_info.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -42,7 +43,7 @@ class _UserProfileState extends State<UserProfile> {
                 subtitle: "Notificações e cache",
                 icon: CupertinoIcons.gear, 
                 onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => UserConfigScreen()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserConfigScreen()));
 
               },),
               ProfileMenu(
@@ -55,7 +56,9 @@ class _UserProfileState extends State<UserProfile> {
                 title: "Conta", 
                 subtitle: "Conta e segurança",
                 icon: CupertinoIcons.person_alt_circle, 
-                onPressed: (){},),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserContaInfo()));
+                },),
 
               const Divider(height: 10, thickness: 0.1, color: Colors.grey, ),
               ProfileMenu(
@@ -70,7 +73,7 @@ class _UserProfileState extends State<UserProfile> {
                 icon: Icons.logout, 
                 textColor: Colors.red,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
                 }
                 ),
             ],

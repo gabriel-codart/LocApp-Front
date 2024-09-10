@@ -12,7 +12,7 @@ class UserEditInfo extends StatelessWidget {
     final nomeCtr = TextEditingController();
     final emailCtr = TextEditingController();
     final phoneCtr = TextEditingController();
-    final senhaCtr = TextEditingController();
+    final enderecoCtr = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
 
@@ -68,7 +68,7 @@ class UserEditInfo extends StatelessWidget {
                     ),
                 ),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextFormField(
@@ -105,16 +105,17 @@ class UserEditInfo extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: TextFormField(
-                  controller: senhaCtr,
+                  controller: enderecoCtr,
                   decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                     borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Color.fromARGB(255, 218, 220, 223)),
                     ),
-                    label: Text('senha'), 
-                    prefixIcon: Icon(Icons.password)),
+                    label: Text('endereço'), 
+                    prefixIcon: Icon(Icons.mail),
+                  )
                 ),
               ),
               const SizedBox(height: 20,),

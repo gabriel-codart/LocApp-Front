@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
 import 'package:locapp_front/screens/location/location-details.dart';
-import 'package:locapp_front/widgets/bottom.navigation.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16.0),
                               decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(.1),
+                                color: Colors.grey.withOpacity(.2),
                                 borderRadius: BorderRadius.circular(30),                   
                               ),
                               child: Row(
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                               child: Icon(
                                 Icons.apartment,
                                 size: 30,
-                                color: Theme.of(context).colorScheme.secondary.withOpacity(0.5),
+                                color: Colors.grey,
                               ),
                             ),
                           );
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => LocationDetails()),
+                                MaterialPageRoute(builder: (context) => const LocationDetails()),
                               );
                             },
                             child: Container(
@@ -154,14 +154,10 @@ class _HomePageState extends State<HomePage> {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.surface,
                                 borderRadius: BorderRadius.circular(20), 
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.2),
-                                    blurRadius: 10,
-                                    spreadRadius: 5,
-                                    offset: const Offset(0, 5), 
-                                  ),
-                                ],
+                                border: BorderDirectional(
+                                  start: BorderSide(width: 1, color: Colors.grey.withOpacity(.3)),
+                                  end: BorderSide(width: 1, color: Colors.grey.withOpacity(.3)),
+                                ),
                               ),
                               child: Stack(
                                 children: [
@@ -278,7 +274,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => LocationDetails()),
+                                MaterialPageRoute(builder: (context) => const LocationDetails()),
                               );
                             },
                             child: Container(
@@ -289,10 +285,10 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(20), 
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
+                                    color: Colors.grey.withOpacity(0.3),
                                     spreadRadius: 3,
                                     blurRadius: 10,
-                                    offset: Offset(0, 5), 
+                                    offset: const Offset(0, 5), 
                                   ),
                                 ],
                               ),

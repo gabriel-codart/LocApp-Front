@@ -14,21 +14,25 @@ class WelcomeButton extends StatelessWidget {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
       },
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: color!,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(50),
+      
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click, 
+        child: Container(
+          padding: const EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: color!,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(50),
+            ),
           ),
-        ),
-        child: Text(
-          buttonText!,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            color: textColor!,
+          child: Text(
+            buttonText!,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: textColor!,
+            ),
           ),
         ),
       ),

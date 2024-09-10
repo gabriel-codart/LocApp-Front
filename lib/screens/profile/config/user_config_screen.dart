@@ -8,6 +8,14 @@ class UserConfigScreen extends StatefulWidget {
   }
 
   class _UserConfigScreenState extends State<UserConfigScreen> {
+    bool valNotify1 = false;
+
+    onChangedFunction1(bool newValue1){
+      setState(() {
+        valNotify1 = newValue1;
+      });
+    }
+
     @override
     Widget build(BuildContext context) {
       return Scaffold(
@@ -32,8 +40,10 @@ class UserConfigScreen extends StatefulWidget {
                 title: Text('Notificações'),
                 subtitle: Text('Ative as notificações e fique por dentro das novidades'),
                 trailing: Switch(
-                  value: false,
-                  onChanged: (value) {},
+                  value: valNotify1,
+                  onChanged: (bool newValue) {
+                    onChangedFunction1(newValue);
+                  },
                 ),
               ),
 

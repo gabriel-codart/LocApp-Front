@@ -17,7 +17,7 @@ class PrimaryHeaderContainer extends StatelessWidget {
         padding: const EdgeInsets.all(0),
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 250, 
+          height: 230, 
           child: Stack(
             children: [
               Positioned(

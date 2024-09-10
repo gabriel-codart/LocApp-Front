@@ -79,12 +79,15 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                                 style: TextStyle(
                                   fontSize: 45.0,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.black87,
                                 ),
+
                               ),
                               TextSpan(
                                 text: '\nPor-favor escolha uma das opções abaixo.',
                                 style: TextStyle(
                                   fontSize: 20,
+                                  color: Colors.black87,
                                 ),
                               ),
                             ],
