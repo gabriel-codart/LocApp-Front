@@ -29,27 +29,33 @@ class _UserPagamentoState extends State<UserPagamento> {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Center(
-          child: Text("Métodos de Pagamento", style: TextStyle(color: Colors.black54),),
+          child: Text(
+            "Métodos de Pagamento",
+            style: TextStyle(color: Colors.black54),
+          ),
         ),
       ),
 
       body: Column(
         children: [
-          const SizedBox(height: 70,),
+          const SizedBox(height: 70),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
                 Icon(Icons.person, color: Colors.black54),
-                const SizedBox(width: 10,),
-                Text("Seus Registros", style: TextStyle(
-                  fontSize: 20,
-                ),),
+                const SizedBox(width: 10),
+                Text(
+                  "Seus Registros",
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
-          const Divider(height: 10, thickness: 0.1, color: Colors.grey,),
-          const SizedBox(height: 20,),
+          const Divider(height: 10, thickness: 0.1, color: Colors.grey),
+          const SizedBox(height: 20),
           Expanded(
             child: ListView.separated(
               itemCount: paymentMetodos.length,
@@ -57,35 +63,48 @@ class _UserPagamentoState extends State<UserPagamento> {
                 return ListTile(
                   leading: Icon(paymenIcons[index]),
                   title: Text(paymentMetodos[index]),
-                  trailing: Icon(Icons.delete, color: Theme.of(context).colorScheme.secondary,),
+                  trailing: Icon(
+                    Icons.delete,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 );
               },
-              separatorBuilder: (context, index){
-                return const Divider(height: 20, thickness: 0.1, color: Colors.grey,);
+              separatorBuilder: (context, index) {
+                return const Divider(height: 20, thickness: 0.1, color: Colors.grey);
               },
-            ),
-          ),
-          const SizedBox(height: 20,),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ElevatedButton(
-                  onPressed: (){},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent.withOpacity(0.1),
-                    elevation: 0,
-                    foregroundColor: Colors.red,
-                    shape: const StadiumBorder(),
-                    side: BorderSide.none,
-                  ),
-                  child: const Text('Limpar Cache'),
-                ),
-              ],
             ),
           ),
         ],
+      ),
+
+      // Adicionando o botão 'Adicionar'
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Adicionar Novo Método'),
+                content: Text('Aqui você pode adicionar um novo método de pagamento.'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Cancelar'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Lógica para adicionar novo método
+                      Navigator.pop(context);
+                    },
+                    child: Text('Adicionar'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
 import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
 import 'package:locapp_front/screens/profile/edit_info/user_edit_info.dart';
+import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
 import 'package:locapp_front/screens/profile/info_conta/user_conta_info.dart';
 
 class UserProfile extends StatefulWidget {
@@ -65,7 +66,9 @@ class _UserProfileState extends State<UserProfile> {
                 title: "Informação",
                 subtitle: "Termos e Privacidade", 
                 icon: CupertinoIcons.info, 
-                onPressed: (){}),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoSistema()));
+                }),
 
               ProfileMenu(
                 title: "Sair", 
