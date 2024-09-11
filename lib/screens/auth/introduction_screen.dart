@@ -63,65 +63,61 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   ),
                 ),
               ),
-              Column(
+             Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Flexible(
-                    flex: 8,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40.0),
-                      child: Center(
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: const TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'Bem-Vindo!\n',
-                                style: TextStyle(
-                                  fontSize: 45.0,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black87,
-                                ),
-
+                  // Texto Bem-vindo e Por favor escolha uma opção
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 40.0),
+                    child: Center(
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Bem-Vindo!\n',
+                              style: TextStyle(
+                                fontSize: 45.0,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
                               ),
-                              TextSpan(
-                                text: '\nPor-favor escolha uma das opções abaixo.',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black87,
-                                ),
+                            ),
+                            TextSpan(
+                              text: '\nPor favor escolha uma das opções abaixo.',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black87,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  const Flexible(
-                    flex: 1,
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: WelcomeButton(
-                              buttonText: "Locador",
-                              color: Colors.transparent,
-                              textColor: Colors.black54,
-                            ),
-                          ),
-                          Expanded(
-                            child: WelcomeButton(
-                              buttonText: "Locatário",
-                              color: Color.fromARGB(255, 240, 240, 240),
-                              textColor: Color.fromARGB(255, 89, 131, 230),
-                            ),
-                          ),
-                        ],
+                  const SizedBox(height: 68), // Espaço entre o texto e os botões
+                  // Botões de escolha
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center, // Centraliza os botões
+                    children: [
+                      Expanded(
+                        child: WelcomeButton(
+                          buttonText: "Locador",
+                          color: Colors.transparent,
+                          textColor: Colors.black87,
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: WelcomeButton(
+                          buttonText: "Locatário",
+                          color: Colors.transparent,
+                          textColor: Color.fromARGB(255, 230, 114, 90),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+
             ],
           ),
         ),

@@ -74,10 +74,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> with TickerProviderStateM
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.4,
+                    height: MediaQuery.of(context).size.height / 1.3,
                     child: Column(
                       children: [
-                        
+                       Padding(
+                          padding: const EdgeInsets.only(top: 1), // Ajuste o padding se necessário
+                          child: Center(
+                            child: RichText(
+                              textAlign: TextAlign.center,
+                              text: const TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Login/Cadastro\n',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 50,),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50.0),
