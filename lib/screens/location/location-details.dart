@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locapp_front/widgets/bottom.navigation.dart';
+import 'package:locapp_front/screens/location/location-form.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
 
 class LocationDetails extends StatefulWidget {
   const LocationDetails({super.key});
@@ -9,123 +11,160 @@ class LocationDetails extends StatefulWidget {
 }
 
 class _LocationDetailsState extends State<LocationDetails> {
-  // Simulação de dados vindos do banco de dados
-  final List<String> images = [
-    "https://picsum.photos/200/300/?blur",
-    "https://picsum.photos/200",
-    "https://picsum.photos/800"
+  // Variáveis para armazenar os dados dinâmicos
+  String title = 'Nome do Local';
+  String description = 'Descrição breve sobre o local de locação.';
+  List<String> imageUrls = [
+    'https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+    'https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
   ];
+  List<Map<String, String>> openingHours = [
+    {'day': 'Dom', 'hours': '--'},
+    {'day': 'Seg', 'hours': '08h - 18h'},
+    {'day': 'Ter', 'hours': '08h - 18h'},
+    {'day': 'Qua', 'hours': '08h - 18h'},
+    {'day': 'Qui', 'hours': '08h - 18h'},
+    {'day': 'Sex', 'hours': '08h - 18h'},
+    {'day': 'Sab', 'hours': '--'}
+  ];
+  String price = 'R\$18 p/ Horário';
 
-  final Map<String, String> openingHours = {
-    'Dom': '--',
-    'Seg': '08h - 18h',
-    'Ter': '08h - 18h',
-    'Qua': '08h - 18h',
-    'Qui': '08h - 18h',
-    'Sex': '08h - 18h',
-    'Sab': '--',
-  };
+  bool isFavorited = false;
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Nome do Local'),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Adicione o código do onPressed aqui!
-        },
-        label: const Text('Reservar'),
-        icon: const Icon(Icons.calendar_month),
-      ),
-      body: ListView(
-        children: [
-          // Carrossel de imagens
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 2.5,
-            child: PageView.builder(
-              itemCount: images.length,
-              itemBuilder: (context, index) {
-                return Image.network(
-                  images[index],
-                  fit: BoxFit.cover,
-                );
-              },
-            ),
-          ),
-
-          // Título do local
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
-            child: Text(
-              'Locação 01',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-
-          // Descrição do local
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            ),
-          ),
-
-          // Tabela de horários
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
-            child: Table(
-              children: [
-                TableRow(
-                  decoration: BoxDecoration(color: Colors.grey.shade500),
-                  children: openingHours.keys.map((day) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Center(
-                        child: Text(
-                          day,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Theme.of(context).colorScheme.surface,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header com botão de voltar, título e favoritar
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+                color: Theme.of(context).colorScheme.surface,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Botão de voltar
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                    
+                    // Nome do local centralizado
+                    Expanded(
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
-                TableRow(
-                  decoration: BoxDecoration(color: Colors.grey.shade300),
-                  children: openingHours.values.map((hours) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Center(
-                        child: Text(hours),
+                    ),
+                    
+                    // Botão de favoritar
+                    IconButton(
+                      icon: Icon(
+                        isFavorited ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorited
+                            ? Theme.of(context).colorScheme.secondary
+                            : Colors.grey,
                       ),
+                      onPressed: () {
+                        setState(() {
+                          isFavorited = !isFavorited;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              // Carrossel de imagens dinâmico
+              Container(
+                height: size.height * 0.4,
+                child: PageView(
+                  children: imageUrls.map((url) {
+                    return Image.network(
+                      url,  // Imagens dinâmicas
+                      fit: BoxFit.cover,
                     );
                   }).toList(),
                 ),
-              ],
-            ),
-          ),
-
-          // Preço do local
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
-            child: Text(
-              'R\$18 p/ Horário',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                color: Colors.white,
-                backgroundColor: Color.fromARGB(255, 0, 102, 255),
               ),
-            ),
+
+              // Descrição do local
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  description,  // Descrição dinâmica
+                  style: const TextStyle(fontSize: 16, color: Colors.black54),
+                ),
+              ),
+
+              // Tabela de horários dinâmicos
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Table(
+                  border: TableBorder.symmetric(
+                    inside: BorderSide(color: Colors.grey.withOpacity(0.5)),
+                  ),
+                  children: [
+                    TableRow(
+                      children: openingHours.map((day) {
+                        return TableCell(
+                          child: Center(child: Text(day['day']!)),
+                        );
+                      }).toList(),
+                    ),
+                    TableRow(
+                      children: openingHours.map((day) {
+                        return TableCell(
+                          child: Center(child: Text(day['hours']!)),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Preço e botão de reservar
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      price,  // Preço dinâmico
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                    FloatingActionButton.extended(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ReservationForm()),
+                        );
+                      },
+                      label: const Text('Reservar'),
+                      icon: const Icon(Icons.calendar_today),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 30.0),
-        ],
+        ),
       ),
     );
   }
