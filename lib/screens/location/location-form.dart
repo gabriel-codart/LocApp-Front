@@ -128,7 +128,7 @@ class _ReservationFormState extends State<ReservationForm> {
                   selectedSpace = newValue;
                 });
               },
-              items: <String>['Espaço 1', 'Espaço 2', 'Espaço 3']
+              items: <String>['Espaço 01', 'Espaço 02', 'Espaço 03']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
