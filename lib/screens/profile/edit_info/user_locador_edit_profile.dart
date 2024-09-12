@@ -13,7 +13,6 @@ class _UserLocadorEditProfileState extends State<UserLocadorEditProfile> {
   final nomeCtr = TextEditingController();
   final emailCtr = TextEditingController();
   final phoneCtr = TextEditingController();
-  final senhaCtr = TextEditingController();
   final valorCtr = TextEditingController();
   final enderecoCtr = TextEditingController();
   final descricaoCtr = TextEditingController();
@@ -159,23 +158,7 @@ class _UserLocadorEditProfileState extends State<UserLocadorEditProfile> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    controller: senhaCtr,
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
-                      ),
-                      label: Text('Senha'),
-                      prefixIcon: Icon(Icons.password),
-                    ),
-                  ),
-                ),
+             
                 const SizedBox(height: 20,),
                 Center(
                   child: Padding(

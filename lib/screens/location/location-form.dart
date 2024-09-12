@@ -11,7 +11,7 @@ class ReservationForm extends StatefulWidget {
 class _ReservationFormState extends State<ReservationForm> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-  String? selectedSpace = 'Espaço 1';
+  String? selectedSpace = 'Espaço 01';
 
   // Método para exibir o seletor de data
   Future<void> _selectDate(BuildContext context) async {
@@ -53,6 +53,7 @@ class _ReservationFormState extends State<ReservationForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('Fazer Reserva'),
       ),
