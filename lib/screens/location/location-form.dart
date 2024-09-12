@@ -64,20 +64,24 @@ class _ReservationFormState extends State<ReservationForm> {
             // Seletor de data
             Row(
               children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => _selectDate(context),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Text(
-                        selectedDate != null
-                            ? DateFormat('dd/MM/yyyy').format(selectedDate!)
-                            : 'Escolha a data',
-                        style: TextStyle(fontSize: 16),
+                Localizations.override(
+                  context: context,
+                  locale: const Locale('_languageCode'),
+                  child: Expanded(
+                    child: GestureDetector(
+                      onTap: () => _selectDate(context),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          selectedDate != null
+                              ? DateFormat('dd/MM/yyyy').format(selectedDate!)
+                              : 'Escolha a data',
+                          style: TextStyle(fontSize: 16),
+                        ),
                       ),
                     ),
                   ),
