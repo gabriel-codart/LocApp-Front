@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/home/home.dart';
-import 'package:locapp_front/screens/location/user_schedule.dart';
+import 'package:locapp_front/screens/location/reserva/user_schedule.dart';
 import 'package:locapp_front/screens/profile/user_profile.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart'; 
 

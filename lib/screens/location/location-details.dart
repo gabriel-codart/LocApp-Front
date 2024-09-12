@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locapp_front/screens/location/maps/localizacao_info.dart';
 import 'package:locapp_front/screens/location/location-form.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
@@ -31,6 +33,7 @@ class _LocationDetailsState extends State<LocationDetails> {
 
   bool isFavorited = false;
 
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -58,6 +61,7 @@ class _LocationDetailsState extends State<LocationDetails> {
                     ),
                     
                     // Nome do local centralizado
+                    const SizedBox(height: 20,),
                     Expanded(
                       child: Text(
                         title,
@@ -88,6 +92,7 @@ class _LocationDetailsState extends State<LocationDetails> {
               ),
 
               // Carrossel de imagens dinâmico
+              const SizedBox(height: 10,),
               Container(
                 height: size.height * 0.4,
                 child: PageView(
@@ -101,6 +106,7 @@ class _LocationDetailsState extends State<LocationDetails> {
               ),
 
               // Descrição do local
+              const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
@@ -110,6 +116,7 @@ class _LocationDetailsState extends State<LocationDetails> {
               ),
 
               // Tabela de horários dinâmicos
+              const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Table(
@@ -135,7 +142,20 @@ class _LocationDetailsState extends State<LocationDetails> {
                 ),
               ),
 
+              const SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: LocalizacaoMenu(
+                  title: 'Localização', 
+                  subtitle: 'Localização do ambiente', 
+                  icon: Icons.map, 
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocalizacaoInfo()));
+                  }),
+              ),
+
               // Preço e botão de reservar
+              const SizedBox(height: 10,),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
@@ -167,5 +187,49 @@ class _LocationDetailsState extends State<LocationDetails> {
         ),
       ),
     );
+  }
+}
+
+class LocalizacaoMenu extends StatelessWidget{
+   const LocalizacaoMenu({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.onPressed,
+    this.endIcon = true,
+    this.textColor,
+  }) : super(key: key);
+
+    final String title;
+    final String subtitle;
+    final IconData icon;
+    final VoidCallback onPressed;
+    final bool endIcon;
+    final Color? textColor;
+
+    @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onPressed,
+
+      leading: Container(
+        width: 40, 
+        height: 40,
+        child: Icon(icon),
+      ),
+      title: Text(title, style: Theme.of(context).textTheme.titleMedium?.apply(color: textColor),),
+      subtitle: Text(subtitle, style: Theme.of(context).textTheme.labelMedium?.apply(color: textColor)),
+      trailing: endIcon? Container(
+              width: 30, 
+              height: 30,
+              decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: Colors.transparent
+              ),
+              child: const Icon(Icons.arrow_forward_ios, color: Colors.black87, size: 16,),
+            ) : null, 
+    );
+   
   }
 }
