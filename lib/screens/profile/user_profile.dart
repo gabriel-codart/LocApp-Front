@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
+
+import 'package:firebase_auth/firebase_auth.dart' as fba;
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+
+import 'package:locapp_front/screens/auth/auth_gate.dart';
 import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
-import 'package:locapp_front/screens/profile/edit_info/user_edit_info.dart';
 import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
 import 'package:locapp_front/screens/profile/info_conta/user_conta_info.dart';
 
@@ -14,6 +17,10 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  final fba.FirebaseAuth? auth;
+
+  _UserProfileState({this.auth});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,63 +29,71 @@ class _UserProfileState extends State<UserProfile> {
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              ListTile(
-                leading: const Image(image: NetworkImage("https://th.bing.com/th/id/OIP.6vwZcc33X4K1oOH5puuU_gHaF7?w=225&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",), width: 50, height: 50,),
-                title: Text('Usuário 01', style: TextStyle(color: Colors.black),),
-                subtitle: Text('usuario@gmail.com', style: TextStyle(color: Colors.black),),
-                trailing: IconButton(
-                  onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const UserEditInfo()));
-                    },
-                  icon: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary,),
-                  ),
+              ProfileMenu(
+                title: "Perfil", 
+                subtitle: "Conta e segurança",
+                icon: CupertinoIcons.person_alt_circle, 
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<ProfileScreen>(
+                      builder: (context) => ProfileScreen(
+                        appBar: AppBar(
+                          title: const Text('Perfil'),
+                        ),
+                        actions: [
+                          SignedOutAction((context) {
+                            Navigator.of(context).pop();
+                          })
+                        ],
+                      ),
+                    ),
+                  );
+                },
               ),
 
-              const SizedBox(height: 30,),
-              const Divider(thickness: 0.1, color: Colors.grey,),
-              const SizedBox(height: 10,),
-
+              const Divider(height: 20, thickness: 0.2, color: Colors.black54),
 
               ProfileMenu(
                 title: "Configuração", 
                 subtitle: "Notificações e cache",
                 icon: CupertinoIcons.gear, 
                 onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const UserConfigScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserConfigScreen()));
+                },
+              ),
 
-              },),
               ProfileMenu(
                 title: "Detalhes das Locações", 
                 subtitle: "Em progresso ou finalizadas",
                 icon: CupertinoIcons.calendar, 
-                onPressed: (){},),
+                onPressed: (){},
+              ),
 
-              ProfileMenu(
-                title: "Conta", 
-                subtitle: "Conta e segurança",
-                icon: CupertinoIcons.person_alt_circle, 
-                onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserContaInfo()));
-                },),
+              const Divider(height: 20, thickness: 0.2, color: Colors.black54),
 
-              const Divider(height: 10, thickness: 0.1, color: Colors.grey, ),
               ProfileMenu(
                 title: "Informação",
                 subtitle: "Termos e Privacidade", 
                 icon: CupertinoIcons.info, 
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoSistema()));
-                }),
+                }
+              ),
 
               ProfileMenu(
-                title: "Sair", 
-                subtitle: "",
+                title: "Logout", 
+                subtitle: "Sair da conta",
                 icon: Icons.logout, 
                 textColor: Colors.red,
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+                  FirebaseUIAuth.signOut(
+                    context: context,
+                    auth: auth,
+                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AuthGate()));
                 }
-                ),
+              ),
             ],
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/auth/components/my_text_field.dart';
-import 'package:locapp_front/screens/home/root_page.dart';
+import 'package:locapp_front/screens/home/root.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -92,7 +92,7 @@ class _SignUpState extends State<SignUp> {
               onPressed:() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RootPage()),
+                  MaterialPageRoute(builder: (context) => const Root()),
                   );
               },
               style: TextButton.styleFrom(

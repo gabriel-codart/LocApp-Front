@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810814378479",
+    "project_id": "locapp-db",
+    "storage_bucket": "locapp-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810814378479:android:365ceaded892abe6e8a61a",
+        "android_client_info": {
+          "package_name": "com.locapp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARkRcrX8ZX9xJFG_3AOiIu7YkTwqwi0Hs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

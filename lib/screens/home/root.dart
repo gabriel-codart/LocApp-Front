@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:locapp_front/screens/home/home.dart';
 import 'package:locapp_front/screens/location/reserva/user_schedule.dart';
 import 'package:locapp_front/screens/profile/user_profile.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart'; 
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class Root extends StatefulWidget {
+  const Root({super.key});
 
   @override
-  State<RootPage> createState() => _RootPageState();
+  _RootState createState() => _RootState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _RootState extends State<Root> {
   int _bottomNavIndex = 0;
 
   // Lista de páginas
@@ -24,20 +24,21 @@ class _RootPageState extends State<RootPage> {
   // Lista de icons das páginas
   List<IconData> iconList = [
     Icons.home,
-    Icons.pending_actions,
+    Icons.history,
     Icons.person,
   ];
 
   // Lista dos títulos das páginas
   List<String> titleList = [
-    'Home',
-    'Store',
-    'Perfil',
+    'Início',
+    'Histórico',
+    'Usuário',
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // AppBar
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,23 +56,26 @@ class _RootPageState extends State<RootPage> {
         automaticallyImplyLeading: false,
       ),
 
+      // Corpo do App
       body: IndexedStack(
         index: _bottomNavIndex,
         children: pages,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // Barra de navegação
       bottomNavigationBar: AnimatedBottomNavigationBar(
         height: 70,
         elevation: 0,
-        splashColor:  Theme.of(context).colorScheme.primary.withOpacity(.9),
-        activeColor:  Theme.of(context).colorScheme.primary.withOpacity(.9),
+        splashColor: Theme.of(context).colorScheme.primary.withOpacity(.9),
+        activeColor: Theme.of(context).colorScheme.primary.withOpacity(.9),
         inactiveColor: Colors.black.withOpacity(.5),
         icons: iconList,
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
         activeIndex: _bottomNavIndex,
         gapLocation: GapLocation.none,
         notchSmoothness: NotchSmoothness.softEdge,
-        onTap: (index){
+        onTap: (index) {
           setState(() {
             _bottomNavIndex = index;
           });

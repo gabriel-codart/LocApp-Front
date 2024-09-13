@@ -20,15 +20,13 @@ class UserConfigScreen extends StatefulWidget {
     Widget build(BuildContext context) {
       return Scaffold(
         appBar: AppBar(
-          title: Center(
-              child: Text(
-                'Configurações',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  ),
-              ),
+          title: const Text(
+            'Configurações',
+            style: TextStyle(
+              color: Colors.black54,
+              fontWeight: FontWeight.bold,
             ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(20.0),
