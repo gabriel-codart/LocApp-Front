@@ -74,18 +74,26 @@ class _LocationDetailsState extends State<LocationDetails> {
                     ),
                     
                     // Botão de favoritar
-                    IconButton(
-                      icon: Icon(
-                        isFavorited ? Icons.favorite : Icons.favorite_border,
-                        color: isFavorited
-                            ? Theme.of(context).colorScheme.secondary
-                            : Colors.grey,
+                    Container(
+                      height: 40,
+                      width: 40,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          isFavorited = !isFavorited;
-                        });
-                      },
+                      child: IconButton(
+                        icon: Icon(
+                          isFavorited ? Icons.favorite : Icons.favorite_border,
+                          color: isFavorited
+                              ? Theme.of(context).colorScheme.secondary
+                              : Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            isFavorited = !isFavorited;
+                          });
+                        },
+                      ),
                     ),
                   ],
                 ),
@@ -93,54 +101,93 @@ class _LocationDetailsState extends State<LocationDetails> {
 
               // Carrossel de imagens dinâmico
               const SizedBox(height: 10,),
-              Container(
-                height: size.height * 0.4,
-                child: PageView(
-                  children: imageUrls.map((url) {
-                    return Image.network(
-                      url,  // Imagens dinâmicas
-                      fit: BoxFit.cover,
-                    );
-                  }).toList(),
+              Center(
+                child: Container(
+                  height: size.height * 0.3,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: PageView(
+                    children: imageUrls.map((url) {
+                      return Image.network(
+                        url,  // Imagens dinâmicas
+                        fit: BoxFit.cover,
+                      );
+                    }).toList(),
+                  ),
                 ),
               ),
 
               // Descrição do local
               const SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  description,  // Descrição dinâmica
-                  style: const TextStyle(fontSize: 16, color: Colors.black54),
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      description,  // Descrição dinâmica
+                      style: const TextStyle(fontSize: 16, color: Colors.black54),
+                    ),
+                  ),
+                ],
               ),
 
               // Tabela de horários dinâmicos
-              const SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Table(
-                  border: TableBorder.symmetric(
-                    inside: BorderSide(color: Colors.grey.withOpacity(0.5)),
-                  ),
-                  children: [
-                    TableRow(
-                      children: openingHours.map((day) {
-                        return TableCell(
-                          child: Center(child: Text(day['day']!)),
-                        );
-                      }).toList(),
-                    ),
-                    TableRow(
-                      children: openingHours.map((day) {
-                        return TableCell(
-                          child: Center(child: Text(day['hours']!)),
-                        );
-                      }).toList(),
-                    ),
-                  ],
+            const SizedBox(height: 20,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              child: Table(
+                border: TableBorder.symmetric(
+                  inside: BorderSide(color: Colors.grey.withOpacity(0.3)),
                 ),
+                children: [
+                  // Linha dos dias
+                  TableRow(
+                    children: openingHours.map((day) {
+                      return TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(
+                            child: Text(
+                              day['day']!,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  // Linha das horas
+                  TableRow(
+                    children: openingHours.map((day) {
+                      return TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(
+                            child: Text(
+                              day['hours']!,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
               ),
+            ),
+
 
               const SizedBox(height: 10,),
               Padding(
@@ -160,6 +207,7 @@ class _LocationDetailsState extends State<LocationDetails> {
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       price,  // Preço dinâmico
@@ -176,6 +224,7 @@ class _LocationDetailsState extends State<LocationDetails> {
                           MaterialPageRoute(builder: (context) => const ReservationForm()),
                         );
                       },
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       label: const Text('Reservar'),
                       icon: const Icon(Icons.calendar_today),
                     ),
