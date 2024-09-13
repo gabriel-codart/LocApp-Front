@@ -12,7 +12,8 @@ void loadGoogleMapsScript() {
   final String googleMapsApiKey = dotenv.env['GOOGLE_MAPS_API_KEY'] ?? '';
   final script = html.ScriptElement()
     ..src = 'https://maps.googleapis.com/maps/api/js?key=$googleMapsApiKey'
-    ..type = 'text/javascript';
+    ..type = 'text/javascript'
+    ..async = true;
   html.document.body?.append(script);
 }
 

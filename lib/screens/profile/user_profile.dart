@@ -7,7 +7,6 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:locapp_front/screens/auth/auth_gate.dart';
 import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
 import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
-import 'package:locapp_front/screens/profile/info_conta/user_conta_info.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -21,6 +20,8 @@ class _UserProfileState extends State<UserProfile> {
 
   _UserProfileState({this.auth});
 
+  final fba.User? user = fba.FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,8 +31,8 @@ class _UserProfileState extends State<UserProfile> {
           child: Column(
             children: [
               ProfileMenu(
-                title: "Perfil", 
-                subtitle: "Conta e segurança",
+                title: user!.displayName != null ? user!.displayName! : "Perfil", 
+                subtitle: user!.email!,
                 icon: CupertinoIcons.person_alt_circle, 
                 onPressed: () {
                   Navigator.push(
@@ -39,12 +40,25 @@ class _UserProfileState extends State<UserProfile> {
                     MaterialPageRoute<ProfileScreen>(
                       builder: (context) => ProfileScreen(
                         appBar: AppBar(
-                          title: const Text('Perfil'),
+                          title: const Text("Perfil"),
                         ),
                         actions: [
                           SignedOutAction((context) {
                             Navigator.of(context).pop();
                           })
+                        ],
+                        showDeleteConfirmationDialog: true,
+                        children: [
+                          const Divider(height: 20, thickness: 0.2, color: Colors.black54),
+
+                          Text("Id: " + user!.uid),
+
+                          const Divider(height: 20, thickness: 0.2, color: Colors.black54),
+
+                          Text("Email: " + user!.email!),
+                          Text(user!.emailVerified? "Verificado" : "Não verificado", style: const TextStyle(fontWeight: FontWeight.bold)),
+
+                          const Divider(height: 20, thickness: 0.2, color: Colors.black54),
                         ],
                       ),
                     ),

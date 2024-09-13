@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locapp_front/models/location.dart';
 import 'package:locapp_front/screens/location/maps/localizacao_info.dart';
 import 'package:locapp_front/screens/location/location-form.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
 
 class LocationDetails extends StatefulWidget {
-  const LocationDetails({super.key});
+  final Location location;
+
+  const LocationDetails({Key? key, required this.location}) : super(key: key);
 
   @override
   State<LocationDetails> createState() => _LocationDetailsState();
 }
 
 class _LocationDetailsState extends State<LocationDetails> {
-  // Variáveis para armazenar os dados dinâmicos
-  String title = 'Nome do Local';
-  String description = 'Descrição breve sobre o local de locação.';
-  List<String> imageUrls = [
-    'https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-    'https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
-  ];
-  List<Map<String, String>> openingHours = [
-    {'day': 'Dom', 'hours': '--'},
-    {'day': 'Seg', 'hours': '08h - 18h'},
-    {'day': 'Ter', 'hours': '08h - 18h'},
-    {'day': 'Qua', 'hours': '08h - 18h'},
-    {'day': 'Qui', 'hours': '08h - 18h'},
-    {'day': 'Sex', 'hours': '08h - 18h'},
-    {'day': 'Sab', 'hours': '--'}
-  ];
-  String price = 'R\$18 p/ Horário';
-
+  late String title;
+  late String description;
+  late String price;
+  late List<String> imageUrls;
   bool isFavorited = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // Atribuindo os dados recebidos do objeto Location
+    title = widget.location.name;
+    description = 'Descrição breve sobre o local de locação'; // Se quiser customizar depois
+    price = 'R\$${widget.location.price.toString()} p/ Horário';
+    imageUrls = [ // Exemplo de imagem; depois pode vir do Firestore
+      'https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+      'https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +57,11 @@ class _LocationDetailsState extends State<LocationDetails> {
                         Navigator.pop(context);
                       },
                     ),
-                    
                     // Nome do local centralizado
                     const SizedBox(height: 20,),
                     Expanded(
                       child: Text(
-                        title,
+                        title, // Usando o nome do local recebido
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 20,
@@ -72,7 +69,6 @@ class _LocationDetailsState extends State<LocationDetails> {
                         ),
                       ),
                     ),
-                    
                     // Botão de favoritar
                     IconButton(
                       icon: Icon(
@@ -93,7 +89,7 @@ class _LocationDetailsState extends State<LocationDetails> {
 
               // Carrossel de imagens dinâmico
               const SizedBox(height: 10,),
-              Container(
+              SizedBox(
                 height: size.height * 0.4,
                 child: PageView(
                   children: imageUrls.map((url) {
@@ -115,43 +111,22 @@ class _LocationDetailsState extends State<LocationDetails> {
                 ),
               ),
 
-              // Tabela de horários dinâmicos
-              const SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Table(
-                  border: TableBorder.symmetric(
-                    inside: BorderSide(color: Colors.grey.withOpacity(0.5)),
-                  ),
-                  children: [
-                    TableRow(
-                      children: openingHours.map((day) {
-                        return TableCell(
-                          child: Center(child: Text(day['day']!)),
-                        );
-                      }).toList(),
-                    ),
-                    TableRow(
-                      children: openingHours.map((day) {
-                        return TableCell(
-                          child: Center(child: Text(day['hours']!)),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 10,),
+              // Botão para localização
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: LocalizacaoMenu(
                   title: 'Localização', 
-                  subtitle: 'Localização do ambiente', 
+                  subtitle: 'Veja a localização no mapa', 
                   icon: Icons.map, 
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocalizacaoInfo()));
-                  }),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LocalizacaoInfo(location: widget.location.geopoint), // Passando o GeoPoint
+                      ),
+                    );
+                  },
+                ),
               ),
 
               // Preço e botão de reservar
@@ -173,7 +148,7 @@ class _LocationDetailsState extends State<LocationDetails> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ReservationForm()),
+                          MaterialPageRoute(builder: (context) => ReservationForm(location: widget.location)),
                         );
                       },
                       label: const Text('Reservar'),
