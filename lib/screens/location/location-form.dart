@@ -207,7 +207,7 @@ class _ReservationFormState extends State<ReservationForm> {
                 onPressed: () async {
                   // Dados da reserva
                   final reservationData = {
-                    'customer': user!.uid, // Atualizar com o ID do cliente logado
+                    'customer': user!.email, // Atualizar com o ID do cliente logado
                     'location': widget.location.id,
                     'date': selectedDate != null ? DateFormat('dd/MM/yyyy').format(selectedDate!) : 'Não selecionada',
                     'time': selectedTime != null ? selectedTime!.format(context) : 'Não selecionada',
