@@ -4,6 +4,7 @@ import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
 import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
 import 'package:locapp_front/screens/profile/info_conta/edit_info/user_edit_info.dart';
 import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
+import 'package:locapp_front/screens/profile/locador/loca%C3%A7%C3%B5es/orderhistory.dart';
 import 'package:locapp_front/screens/profile/locador/user_conta_info.dart';
 
 class UserProfile extends StatefulWidget {
@@ -51,7 +52,9 @@ class _UserProfileState extends State<UserProfile> {
                 title: "Detalhes das Locações", 
                 subtitle: "Em progresso ou finalizadas",
                 icon: CupertinoIcons.calendar, 
-                onPressed: (){},),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LocacoesUsuario() ));
+                },),
 
               ProfileMenu(
                 title: "Conta", 
