@@ -3,7 +3,7 @@ import 'package:locapp_front/screens/auth/introduction_screen.dart';
 import 'package:locapp_front/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/location/location-details.dart';
-import 'package:locapp_front/screens/profile/user_profile.dart';
+import 'package:locapp_front/screens/profile/locador/user_profile.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
