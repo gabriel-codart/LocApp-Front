@@ -1,37 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:locapp_front/screens/home/home.dart';
+import 'package:locapp_front/screens/home/locatario/home_locatario.dart';
 import 'package:locapp_front/screens/location/reserva/user_schedule.dart';
 import 'package:locapp_front/screens/profile/locador/user_profile.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart'; 
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:locapp_front/screens/profile/locatario/info_conta/user_locador_perfil.dart'; 
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class RootPageLocatario extends StatefulWidget {
+  const RootPageLocatario({super.key});
 
   @override
-  State<RootPage> createState() => _RootPageState();
+  State<RootPageLocatario> createState() => _RootPageState();
 }
 
-class _RootPageState extends State<RootPage> {
+class _RootPageState extends State<RootPageLocatario> {
   int _bottomNavIndex = 0;
 
   // Lista de páginas
   List<Widget> pages = const [
-    HomePage(),
-    UserSchedule(),
-    UserProfile(),
+    HomeLocatario(),
+    UserLocadorPerfil(),
   ];
 
   // Lista de icons das páginas
   List<IconData> iconList = [
     Icons.home,
-    Icons.pending_actions,
     Icons.person,
   ];
 
   // Lista dos títulos das páginas
   List<String> titleList = [
     'Home',
-    'Store',
     'Perfil',
   ];
 

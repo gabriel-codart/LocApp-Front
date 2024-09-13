@@ -17,7 +17,6 @@ class BottomNavigation extends StatelessWidget {
           case 2:
             Navigator.pushNamed(context, "/user");
             break;
-         
         };
       },
       type: BottomNavigationBarType.shifting,
