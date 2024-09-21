@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:html' as html;
-import 'package:locapp_front/screens/auth/auth_gate.dart';
+import 'package:locapp/screens/auth/auth_gate.dart';
 
 
 void loadGoogleMapsScript() {

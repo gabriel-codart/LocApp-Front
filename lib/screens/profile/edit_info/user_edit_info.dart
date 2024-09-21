@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/widgets/bottom_navigation.dart';
+import 'package:locapp/widgets/bottom_navigation.dart';
 
 class UserEditInfo extends StatelessWidget {
   const UserEditInfo({

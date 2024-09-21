@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/auth/components/my_text_field.dart';
-import 'package:locapp_front/screens/home/root.dart';
+import 'package:locapp/screens/auth/components/my_text_field.dart';
+import 'package:locapp/screens/home/root.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});

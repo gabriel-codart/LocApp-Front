@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fba;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
-import 'package:locapp_front/screens/auth/auth_gate.dart';
-import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
-import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
+import 'package:locapp/screens/auth/auth_gate.dart';
+import 'package:locapp/screens/profile/config/user_config_screen.dart';
+import 'package:locapp/screens/profile/info_conta/info_sistema.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});

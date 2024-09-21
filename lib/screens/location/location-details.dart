@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locapp_front/models/location.dart';
-import 'package:locapp_front/screens/location/maps/localizacao_info.dart';
-import 'package:locapp_front/screens/location/location-form.dart';
+import 'package:locapp/models/location.dart';
+import 'package:locapp/screens/location/maps/localizacao_info.dart';
+import 'package:locapp/screens/location/location-form.dart';
 
 class LocationDetails extends StatefulWidget {
   final Location location;

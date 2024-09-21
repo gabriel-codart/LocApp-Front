@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fba;
-import 'package:locapp_front/models/location.dart';
-import 'package:locapp_front/screens/home/root.dart';
+import 'package:locapp/models/location.dart';
+import 'package:locapp/screens/home/root.dart';
 
 class ReservationForm extends StatefulWidget {
   final Location location;

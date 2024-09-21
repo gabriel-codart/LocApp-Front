@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:locapp_front/models/location.dart';
+import 'package:locapp/models/location.dart';
 
-import 'package:locapp_front/screens/location/location-details.dart';
-import 'package:locapp_front/widgets/bottom_navigation.dart';
+import 'package:locapp/screens/location/location-details.dart';
+import 'package:locapp/widgets/bottom_navigation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
