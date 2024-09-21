@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:locapp/screens/auth/components/my_text_field.dart';
-import 'package:locapp/screens/home/root_page.dart';
+import 'package:locapp/screens/home/root.dart';
 
 class SigInScreen extends StatefulWidget {
   const SigInScreen({super.key});
@@ -67,7 +67,7 @@ class _SigInScreenState extends State<SigInScreen> {
               onPressed:() {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RootPage()),
+                  MaterialPageRoute(builder: (context) => const Root()),
                   );
               },
               style: TextButton.styleFrom(

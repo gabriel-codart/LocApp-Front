@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp/widgets/bottom.navigation.dart';
+import 'package:locapp/widgets/bottom_navigation.dart';
 
 class UserEditInfo extends StatelessWidget {
   const UserEditInfo({
@@ -12,6 +12,7 @@ class UserEditInfo extends StatelessWidget {
     final nomeCtr = TextEditingController();
     final emailCtr = TextEditingController();
     final phoneCtr = TextEditingController();
+    final enderecoCtr = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
 
@@ -98,6 +99,23 @@ class UserEditInfo extends StatelessWidget {
                     ),
                     label: Text('telefone'), 
                     prefixIcon: Icon(Icons.phone)),
+                ),
+              ),
+              const SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextFormField(
+                  controller: enderecoCtr,
+                  decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                     borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color.fromARGB(255, 218, 220, 223)),
+                    ),
+                    label: Text('endereço'), 
+                    prefixIcon: Icon(Icons.mail),
+                  )
                 ),
               ),
               const SizedBox(height: 20,),

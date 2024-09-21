@@ -1,38 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:locapp/models/location.dart';
 import 'package:locapp/screens/location/maps/localizacao_info.dart';
 import 'package:locapp/screens/location/location-form.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:locapp/screens/home/components/containers/primary_header.dart';
 
 class LocationDetails extends StatefulWidget {
-  const LocationDetails({super.key});
+  final Location location;
+
+  const LocationDetails({Key? key, required this.location}) : super(key: key);
 
   @override
   State<LocationDetails> createState() => _LocationDetailsState();
 }
 
 class _LocationDetailsState extends State<LocationDetails> {
-  // Variáveis para armazenar os dados dinâmicos
-  String title = 'Nome do Local';
-  String description = 'Descrição breve sobre o local de locação.';
-  List<String> imageUrls = [
-    'https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7',
-    'https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
-  ];
-  List<Map<String, String>> openingHours = [
-    {'day': 'Dom', 'hours': '--'},
-    {'day': 'Seg', 'hours': '08h - 18h'},
-    {'day': 'Ter', 'hours': '08h - 18h'},
-    {'day': 'Qua', 'hours': '08h - 18h'},
-    {'day': 'Qui', 'hours': '08h - 18h'},
-    {'day': 'Sex', 'hours': '08h - 18h'},
-    {'day': 'Sab', 'hours': '--'}
-  ];
-  String price = 'R\$18 p/ Horário';
-
+  late String title;
+  late String description;
+  late String price;
+  late List<String> imageUrls;
   bool isFavorited = false;
 
+  @override
+  void initState() {
+    super.initState();
+    // Atribuindo os dados recebidos do objeto Location
+    title = widget.location.name;
+    description = 'Descrição breve sobre o local de locação'; // Se quiser customizar depois
+    price = 'R\$${widget.location.price.toString()} p/ Horário';
+    imageUrls = [ // Exemplo de imagem; depois pode vir do Firestore
+      'https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7',
+      'https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +57,11 @@ class _LocationDetailsState extends State<LocationDetails> {
                         Navigator.pop(context);
                       },
                     ),
-                    
                     // Nome do local centralizado
                     const SizedBox(height: 20,),
                     Expanded(
                       child: Text(
-                        title,
+                        title, // Usando o nome do local recebido
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 20,
@@ -72,28 +69,19 @@ class _LocationDetailsState extends State<LocationDetails> {
                         ),
                       ),
                     ),
-                    
                     // Botão de favoritar
-                    Container(
-                      height: 40,
-                      width: 40,
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
+                    IconButton(
+                      icon: Icon(
+                        isFavorited ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorited
+                            ? Theme.of(context).colorScheme.secondary
+                            : Colors.grey,
                       ),
-                      child: IconButton(
-                        icon: Icon(
-                          isFavorited ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorited
-                              ? Theme.of(context).colorScheme.secondary
-                              : Colors.grey,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            isFavorited = !isFavorited;
-                          });
-                        },
-                      ),
+                      onPressed: () {
+                        setState(() {
+                          isFavorited = !isFavorited;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -101,104 +89,44 @@ class _LocationDetailsState extends State<LocationDetails> {
 
               // Carrossel de imagens dinâmico
               const SizedBox(height: 10,),
-              Center(
-                child: Container(
-                  height: size.height * 0.3,
-                  width: 400,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: PageView(
-                    children: imageUrls.map((url) {
-                      return Image.network(
-                        url,  // Imagens dinâmicas
-                        fit: BoxFit.cover,
-                      );
-                    }).toList(),
-                  ),
+              SizedBox(
+                height: size.height * 0.4,
+                child: PageView(
+                  children: imageUrls.map((url) {
+                    return Image.network(
+                      url,  // Imagens dinâmicas
+                      fit: BoxFit.cover,
+                    );
+                  }).toList(),
                 ),
               ),
 
               // Descrição do local
               const SizedBox(height: 10,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      description,  // Descrição dinâmica
-                      style: const TextStyle(fontSize: 16, color: Colors.black54),
-                    ),
-                  ),
-                ],
-              ),
-
-              // Tabela de horários dinâmicos
-            const SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Table(
-                border: TableBorder.symmetric(
-                  inside: BorderSide(color: Colors.grey.withOpacity(0.3)),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  description,  // Descrição dinâmica
+                  style: const TextStyle(fontSize: 16, color: Colors.black54),
                 ),
-                children: [
-                  // Linha dos dias
-                  TableRow(
-                    children: openingHours.map((day) {
-                      return TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Center(
-                            child: Text(
-                              day['day']!,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  // Linha das horas
-                  TableRow(
-                    children: openingHours.map((day) {
-                      return TableCell(
-                        verticalAlignment: TableCellVerticalAlignment.middle,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Center(
-                            child: Text(
-                              day['hours']!,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ],
               ),
-            ),
 
-
-              const SizedBox(height: 10,),
+              // Botão para localização
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: LocalizacaoMenu(
                   title: 'Localização', 
-                  subtitle: 'Localização do ambiente', 
+                  subtitle: 'Veja a localização no mapa', 
                   icon: Icons.map, 
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LocalizacaoInfo()));
-                  }),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LocalizacaoInfo(location: widget.location.geopoint), // Passando o GeoPoint
+                      ),
+                    );
+                  },
+                ),
               ),
 
               // Preço e botão de reservar
@@ -207,7 +135,6 @@ class _LocationDetailsState extends State<LocationDetails> {
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       price,  // Preço dinâmico
@@ -221,10 +148,9 @@ class _LocationDetailsState extends State<LocationDetails> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ReservationForm()),
+                          MaterialPageRoute(builder: (context) => ReservationForm(location: widget.location)),
                         );
                       },
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       label: const Text('Reservar'),
                       icon: const Icon(Icons.calendar_today),
                     ),

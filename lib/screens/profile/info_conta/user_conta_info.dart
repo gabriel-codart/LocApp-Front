@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp/screens/profile/locador/senha/redefinir_senha.dart';
-import 'package:locapp/screens/profile/locatario/pagamentos/pagamentos_recebidos.dart';
+import 'package:locapp/screens/profile/info_conta/pagamento/user_pagamento.dart';
+import 'package:locapp/screens/profile/info_conta/senha/redefinir_senha.dart';
+import 'package:locapp/screens/profile/user_profile.dart';
 
-class UserLocatarioContaInfo extends StatefulWidget {
-  const UserLocatarioContaInfo({Key? key}): super(key: key); 
+class UserContaInfo extends StatefulWidget {
+  const UserContaInfo({Key? key}): super(key: key); 
 
   @override
-  State<UserLocatarioContaInfo> createState() => _UserLocatarioContaInfoState();
+  State<UserContaInfo> createState() => _UserContaInfoState();
 }
 
 
-class _UserLocatarioContaInfoState extends State<UserLocatarioContaInfo> {
+class _UserContaInfoState extends State<UserContaInfo> {
   bool valNotify1 = false;
 
   onChangedFunction1(bool newValue1){
@@ -53,8 +54,8 @@ class _UserLocatarioContaInfoState extends State<UserLocatarioContaInfo> {
           const SizedBox(height: 10,),
           MouseRegion(
             cursor: SystemMouseCursors.click,
-            child: builAccountOption(context, "Pagamentos recebidos", icon: Icons.payment, onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const PagamentosRecebidos()));
+            child: builAccountOption(context, "Métodos de Pagamento", icon: Icons.payment, onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const UserPagamento()));
           } ),
           ),
 
@@ -112,7 +113,7 @@ Widget builAccountOption(BuildContext context, String title, {required VoidCallb
         children: [
           Row(
             children: [
-              Icon(icon), 
+              Icon(icon), // <--- Use the icon parameter here
               const SizedBox(width: 10,),
               Text(title, style: TextStyle(
                 fontSize: 18,

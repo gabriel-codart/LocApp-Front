@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import necessário para o GeoPoint
 
 class LocalizacaoInfo extends StatefulWidget {
-  const LocalizacaoInfo({super.key});
+  final GeoPoint location; // Recebe o GeoPoint da localização
+
+  const LocalizacaoInfo({super.key, required this.location});
 
   @override
   State<LocalizacaoInfo> createState() => _LocalizacaoInfoState();
@@ -12,42 +14,55 @@ class LocalizacaoInfo extends StatefulWidget {
 class _LocalizacaoInfoState extends State<LocalizacaoInfo> {
   GoogleMapController? mapController;
 
-  final LatLng _center = const LatLng(-5.0887985, -42.81359);
-
+  late LatLng _target;
   final Set<Marker> _markers = {};
 
-  void _onMapCreated(GoogleMapController controller){
-    mapController = controller;
-    _addMarkers();
+  @override
+  void initState() {
+    super.initState();
+    
+    // Define o centro do mapa como a posição da locação
+    _target = LatLng(widget.location.latitude, widget.location.longitude);
+
+    // Adiciona um marcador na posição da locação
+    _addMarker();
   }
 
-  void _addMarkers(){
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
+
+  void _addMarker() {
     setState(() {
       _markers.add(
         Marker(
-          markerId: MarkerId('marker_1'),
-          position: LatLng(-5.0696901, -42.7754298),
-          infoWindow: InfoWindow(
-            title: 'Condomínio Solaris',
-            snippet: 'Edifício localizado no condomínio solaris 2',
+          markerId: const MarkerId('marker_location'),
+          position: _target,
+          infoWindow: const InfoWindow(
+            title: 'Localização da locação',
+            snippet: 'Endereço ou descrição aqui',
           ),
-          ),
+        ),
       );
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Maps', style: TextStyle(
-          color: Colors.black54,
-        ),)),
+        title: const Text(
+          'Localização no Mapa',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
+        ),
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
         initialCameraPosition: CameraPosition(
-          target: _center,
-          zoom: 11.5,
+          target: _target,
+          zoom: 14.0,  // Ajuste o zoom conforme necessário
         ),
         markers: _markers,
       ),

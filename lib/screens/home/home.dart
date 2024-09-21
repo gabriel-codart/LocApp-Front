@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:locapp/screens/home/components/containers/primary_header.dart';
-import 'package:locapp/screens/location/location-details.dart';
+import 'package:locapp/models/location.dart';
 
+import 'package:locapp/screens/location/location-details.dart';
+import 'package:locapp/widgets/bottom_navigation.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,375 +14,201 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
-  List<String> _categorias = [
-    'Recomendado', 
-    'Longa duração', 
-    'Curta duração', 
-    'Eventos', 
-    'Negócios', 
-    'Lazer'
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  List<String> categories = [
+    'Recomendado',
+    'Longa duração',
+    'Curta duração',
+    'Eventos',
   ];
 
-  bool toggleIsFavorited(bool isFavorited) {
-    return !isFavorited;
+  Future<List<Location>> getLocations() async {
+    try {
+      var snapshot = await firestore.collection('location').get();
+      return snapshot.docs.map((doc) {
+        var mapData = doc.data();
+        mapData['id'] = doc.id;
+        return Location.fromFirestore(mapData, doc.id);
+      }).toList();
+    } on FirebaseException catch (e) {
+      debugPrint("Failed with error '${e.code}': ${e.message}");
+      throw Exception(e.message);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          color: Theme.of(context).colorScheme.surface,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header com campo de pesquisa e categorias
-              PrimaryHeaderContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Container de busca
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(.2),
-                                borderRadius: BorderRadius.circular(30),                   
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    CupertinoIcons.search,
-                                    color: Colors.black54.withOpacity(.6),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  const Expanded(
-                                    child: TextField(
-                                      showCursor: false,
-                                      decoration: InputDecoration(
-                                        hintText: 'Pesquisar por locação',
-                                        border: InputBorder.none,
-                                      ),
-                                    ),
-                                  ),
-                                  Icon(
-                                    CupertinoIcons.mic,
-                                    color: Colors.black54.withOpacity(.6),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Campo de busca
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.search, color: Colors.black54.withOpacity(0.6)),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'Pesquisar por locação',
+                        border: InputBorder.none,
                       ),
                     ),
-                    
-                    // Categorias
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Text(
-                        "Categorias",
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
+                  ),
+                  Icon(Icons.mic, color: Colors.black54.withOpacity(0.6)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Categorias
+            Text(
+              "Categorias",
+              style: TextStyle(
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 80,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: categories.map((category) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                      child: Icon(Icons.category, size: 24, color: Colors.grey),
                     ),
-                    Container(
-                      height: 90,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: List.generate(_categorias.length, (index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: CircleAvatar(
-                              radius: 35,
-                              backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(.1),
-                              child: Icon(
-                                Icons.apartment,
-                                size: 30,
-                                color: Colors.grey,
-                              ),
+                  );
+                }).toList(),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Populares
+            Text(
+              "Populares",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            const SizedBox(height: 10),
+
+            // Listagem de Locações
+            Expanded(
+              child: FutureBuilder<List<Location>>(
+                future: getLocations(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Erro ao carregar locações'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('Nenhuma locação disponível'));
+                  }
+
+                  var locations = snapshot.data!;
+                  return ListView.builder(
+                    itemCount: locations.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (BuildContext context, int index) {
+                      Location location = locations[index]; 
+
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LocationDetails(location: location),
                             ),
                           );
-                        }),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-          
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(
-                  "Populares",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ),
-              // Cards de locais populares
-              SizedBox(
-                height: size.height * .3,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _categorias.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const LocationDetails()),
-                              );
-                            },
-                            child: Container(
-                              width: 200,
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
-                                borderRadius: BorderRadius.circular(20), 
-                                border: BorderDirectional(
-                                  start: BorderSide(width: 1, color: Colors.grey.withOpacity(.3)),
-                                  end: BorderSide(width: 1, color: Colors.grey.withOpacity(.3)),
+                        },
+                        child: Container(
+                          width: 180,
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(15),
+                                ),
+                                child: Image.network(
+                                  "https://th.bing.com/th/id/OIP.r5jzGByVNVqcIi7q0n09kAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                                  height: 175,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    left: 50,
-                                    right: 50,
-                                    top: 40,
-                                    bottom: 70,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.network(
-                                        "https://th.bing.com/th/id/OIP.Jmmf_v5iACxlM_zTth1frgHaGB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-                                        fit: BoxFit.cover,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      location.name,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 10,
-                                    right: 20,
-                                    child: Container(
-                                      height: 40,
-                                      width: 40,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: IconButton(
-                                        icon: const Icon(Icons.favorite_border),
+                                    const SizedBox(height: 5),
+                                    RatingBarIndicator(
+                                      rating: 4.0,
+                                      itemBuilder: (context, index) => Icon(
+                                        Icons.star,
                                         color: Theme.of(context).colorScheme.secondary,
-                                        onPressed: () {
-                                          // Lógica de favoritar
-                                        },
+                                      ),
+                                      itemCount: 5,
+                                      itemSize: 20.0,
+                                      direction: Axis.horizontal,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      "R\$${location.price.toStringAsFixed(2)} / Hora",
+                                      style: TextStyle(
+                                        color: Theme.of(context).colorScheme.primary,
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 15,
-                                    left: 20,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Eventos',
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Ambiente 1',
-                                          style: TextStyle(
-                                            color: Colors.black54,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 15,
-                                    right: 20,
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        'R\$18',
-                                        style: TextStyle(
-                                          color: Theme.of(context).colorScheme.primary,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-          
-              // Cards de novidades
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Text(
-                  "Novidade",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    backgroundColor: Colors.transparent,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.height * .2,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: 1,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const LocationDetails()),
-                              );
-                            },
-                            child: Container(
-                              width: size.width,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).colorScheme.surface,
-                                borderRadius: BorderRadius.circular(20), 
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 3,
-                                    blurRadius: 10,
-                                    offset: const Offset(0, 5), 
-                                  ),
-                                ],
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image(
-                                        image: NetworkImage(
-                                          "https://th.bing.com/th/id/OIP.KRCYXwee5sQvzcq485Bp8wHaFB?w=222&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-                                        ),
-                                        height: 120,
-                                        width: 150,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 190,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          "Edifício 02",
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                        Text(
-                                          "Localização incrível",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.black54,
-                                          ),
-                                        ),
-                                        RatingBarIndicator(
-                                          rating: 4.5,
-                                          itemBuilder: (context, index) => Icon(
-                                            Icons.star,
-                                            color: Theme.of(context).colorScheme.secondary,
-                                          ),
-                                          itemCount: 5,
-                                          itemSize: 20.0,
-                                          direction: Axis.horizontal,
-                                        ),
-                                        Text(
-                                          "R\$15 / Hora",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context).colorScheme.primary,
-                                          ),
-                                        ),
-                                        
-                                      ],
-                                      
-                                    ),
-                                    
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(Icons.favorite_border, color: Theme.of(context).colorScheme.secondary, size: 26,),
-                                        IconButton(
-                                          icon: Icon(Icons.calendar_today, size: 26, color: Theme.of(context).colorScheme.secondary,),
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(builder: (context) => LocationDetails()),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

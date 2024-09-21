@@ -13,7 +13,9 @@ class _UserLocadorEditProfileState extends State<UserLocadorEditProfile> {
   final nomeCtr = TextEditingController();
   final emailCtr = TextEditingController();
   final phoneCtr = TextEditingController();
- 
+  final valorCtr = TextEditingController();
+  final enderecoCtr = TextEditingController();
+  final descricaoCtr = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   File? _coverPhoto;
@@ -119,6 +121,40 @@ class _UserLocadorEditProfileState extends State<UserLocadorEditProfile> {
                       ),
                       label: Text('Telefone'),
                       prefixIcon: Icon(Icons.phone),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: descricaoCtr,
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                      ),
+                      label: Text('Descrição'),
+                      prefixIcon: Icon(Icons.description),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: valorCtr,
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(133, 147, 146, 155)),
+                      ),
+                      label: Text('Valor R\$'),
+                      prefixIcon: Icon(Icons.money),
                     ),
                   ),
                 ),
