@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/auth/sign_process/sign_in.dart';
-import 'package:locapp_front/screens/auth/sign_process/sign_up.dart';
+import 'package:locapp/screens/auth/sign_process/sign_in.dart';
+import 'package:locapp/screens/auth/sign_process/sign_up.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

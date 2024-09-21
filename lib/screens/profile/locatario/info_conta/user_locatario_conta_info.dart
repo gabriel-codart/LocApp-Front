@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/profile/locador/senha/redefinir_senha.dart';
-import 'package:locapp_front/screens/profile/locatario/pagamentos/pagamentos_recebidos.dart';
+import 'package:locapp/screens/profile/locador/senha/redefinir_senha.dart';
+import 'package:locapp/screens/profile/locatario/pagamentos/pagamentos_recebidos.dart';
 
 class UserLocatarioContaInfo extends StatefulWidget {
   const UserLocatarioContaInfo({Key? key}): super(key: key); 

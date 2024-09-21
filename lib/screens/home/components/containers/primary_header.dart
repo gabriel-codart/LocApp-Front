@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/home/components/containers/circular_container.dart';
-import 'package:locapp_front/screens/home/components/curvedEdges/curved_edges_widget.dart';
+import 'package:locapp/screens/home/components/containers/circular_container.dart';
+import 'package:locapp/screens/home/components/curvedEdges/curved_edges_widget.dart';
 
 class PrimaryHeaderContainer extends StatelessWidget {
   const PrimaryHeaderContainer({

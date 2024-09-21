@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/profile/locador/pagamento/user_pagamento.dart';
-import 'package:locapp_front/screens/profile/locador/senha/redefinir_senha.dart';
-import 'package:locapp_front/screens/profile/locador/user_profile.dart';
+import 'package:locapp/screens/profile/locador/pagamento/user_pagamento.dart';
+import 'package:locapp/screens/profile/locador/senha/redefinir_senha.dart';
+import 'package:locapp/screens/profile/locador/user_profile.dart';
 
 class UserContaInfo extends StatefulWidget {
   const UserContaInfo({Key? key}): super(key: key); 

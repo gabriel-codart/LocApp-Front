@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
-import 'package:locapp_front/screens/location/location-details.dart';
-import 'package:locapp_front/screens/profile/locatario/user_adiciona_ambiente.dart';
+import 'package:locapp/screens/home/components/containers/primary_header.dart';
+import 'package:locapp/screens/location/location-details.dart';
+import 'package:locapp/screens/profile/locatario/user_adiciona_ambiente.dart';
 
 class HomeLocatario extends StatefulWidget {
   const HomeLocatario({super.key});

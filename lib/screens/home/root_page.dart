@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/home/home.dart';
-import 'package:locapp_front/screens/location/reserva/user_schedule.dart';
-import 'package:locapp_front/screens/profile/locador/user_profile.dart';
+import 'package:locapp/screens/home/home.dart';
+import 'package:locapp/screens/location/reserva/user_schedule.dart';
+import 'package:locapp/screens/profile/locador/user_profile.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart'; 
 
 class RootPage extends StatefulWidget {

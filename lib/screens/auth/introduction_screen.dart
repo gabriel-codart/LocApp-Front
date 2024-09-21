@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/auth/welcome/welcome_button.dart';
+import 'package:locapp/screens/auth/welcome/welcome_button.dart';
 
 
 class IntroductionScreen extends StatefulWidget {

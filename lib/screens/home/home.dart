@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:locapp_front/screens/home/components/containers/primary_header.dart';
-import 'package:locapp_front/screens/location/location-details.dart';
+import 'package:locapp/screens/home/components/containers/primary_header.dart';
+import 'package:locapp/screens/location/location-details.dart';
 
 
 class HomePage extends StatefulWidget {

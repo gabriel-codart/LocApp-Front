@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:locapp_front/screens/auth/welcome/welcome_screen.dart';
-import 'package:locapp_front/screens/profile/config/user_config_screen.dart';
-import 'package:locapp_front/screens/profile/info_conta/edit_info/user_locador_edit_profile.dart';
-import 'package:locapp_front/screens/profile/info_conta/info_sistema.dart';
-import 'package:locapp_front/screens/profile/locador/user_profile.dart';
-import 'package:locapp_front/screens/profile/locatario/info_conta/user_locatario_conta_info.dart';
+import 'package:locapp/screens/auth/welcome/welcome_screen.dart';
+import 'package:locapp/screens/profile/config/user_config_screen.dart';
+import 'package:locapp/screens/profile/info_conta/edit_info/user_locador_edit_profile.dart';
+import 'package:locapp/screens/profile/info_conta/info_sistema.dart';
+import 'package:locapp/screens/profile/locador/user_profile.dart';
+import 'package:locapp/screens/profile/locatario/info_conta/user_locatario_conta_info.dart';
 
 class UserLocadorPerfil extends StatefulWidget {
   const UserLocadorPerfil({super.key});

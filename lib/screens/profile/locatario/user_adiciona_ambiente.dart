@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:locapp_front/screens/profile/locatario/maps/user_adiciona_mapa.dart';
+import 'package:locapp/screens/profile/locatario/maps/user_adiciona_mapa.dart';
 
 class UserAdicionaAmbiente extends StatefulWidget {
   const UserAdicionaAmbiente({super.key});
