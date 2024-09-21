@@ -122,7 +122,7 @@ class _LocationDetailsState extends State<LocationDetails> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LocalizacaoInfo(location: widget.location.geopoint), // Passando o GeoPoint
+                        builder: (context) => LocalizacaoInfo(location: widget.location), // Passando o GeoPoint
                       ),
                     );
                   },
